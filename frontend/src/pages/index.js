@@ -1,5 +1,7 @@
 import { fetchPageContent } from './api/api';
-import Image from 'next/image';
+import Image from 'next/image'
+import { useState } from 'react';
+import styles from '../styles/Home.module.css';
 
 export async function getStaticProps() {
   const pageContent = await fetchPageContent();
@@ -10,40 +12,52 @@ export async function getStaticProps() {
 }
 
 export default function Home({ pageContent }) {
+  const [selectedTab, setSelectedTab] = useState(0);
+
+  const handleTabChange = (index) => {
+    setSelectedTab(index);
+  };
 
   if (!pageContent) {
     return <div>Loading...</div>;
   }
 
+  const currentItem = pageContent.Items[selectedTab];
+
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>{pageContent.Title}</h1>
-      <p>{pageContent.descr}</p>
+    <div>
+      <div className={styles.wrapper}>
+        <h1>{pageContent.Title}</h1>
+        <p>{pageContent.descr}</p>
+      </div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        {/* Перевіряємо, чи існує зображення */}
         {pageContent.image && pageContent.image[0].url && (
-          <div style={{ position: 'relative', width: '50%', height: '300px' }}>
-            <Image
-              src={`http://localhost:1337${pageContent.image[0].url}`}
-              alt="Industry Experts"
-              layout="fill"
-              objectFit="cover"
-            />
+          <div className={styles.leftSection}>
+            <div className={styles.photo}>
+              <Image
+                src={`http://localhost:1337${pageContent.image[0].url}`}
+                alt="Industry Experts"
+                layout="fill"
+                objectFit="cover"
+              /></div>
+            <div className={styles.imageOverlay}>
+              <p className={styles.overlayText}>{currentItem.title}</p>
+              <p className={styles.overlayDescr}>{currentItem.descr}</p>
+            </div>
           </div>
         )}
-
-        <div style={{ width: '40%' }}>
-          {/* Перевіряємо, чи є items */}
-          {pageContent.Items && pageContent.Items.length > 0 ? (
-            pageContent.Items.map((item, index) => (
-              <div key={index} style={{ marginBottom: '1rem' }}>
-                <h3>{item.title}</h3>
-                <p>{item.descr}</p>
-              </div>
-            ))
-          ) : (
-            <p>No items available</p>
-          )}
+        <div className={styles.rightSection}>
+          <ul>
+            {pageContent.Items.map((item, index) => (
+              <li
+                key={index}
+                onClick={() => handleTabChange(index)}
+                className={`${styles.tab} ${index === selectedTab ? styles.active : styles.inactive}`}
+              >
+                <span className={styles.arrow}>&lt;</span>{item.title}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
