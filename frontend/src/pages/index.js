@@ -25,7 +25,7 @@ export default function Home({ pageContent }) {
   const currentItem = pageContent.Items[selectedTab];
 
   return (
-    <div>
+    <div style={{ width: '100%', height: '100%' }} >
       <div className={styles.wrapper}>
         <h1>{pageContent.Title}</h1>
         <p>{pageContent.descr}</p>
@@ -35,8 +35,8 @@ export default function Home({ pageContent }) {
           <div className={styles.leftSection}>
             <div className={styles.photo}>
               <Image
-                src={`http://localhost:1337${pageContent.image[0].url}`}
-                alt="Industry Experts"
+                src={pageContent.image[0].url}
+                alt={pageContent.image[0].alternativeText || 'Industry Experts'}
                 layout="fill"
                 objectFit="cover"
               /></div>

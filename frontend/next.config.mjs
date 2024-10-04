@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['localhost'],
+    domains: ['worthy-beef-fa3f6b6758.media.strapiapp.com'],
   },
 
 };

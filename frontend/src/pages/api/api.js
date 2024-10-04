@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const token = '29af20efc6f6d8a2d9a6ce8d6e35a3b0a65ed5aa31011d22b3a8b3f4b86f6474bf14060ea303a5d64453429cb5685907f61b3dc0bd6ad47b659097cc195315668e4e7fff52731ef9dcf6d1fd472aef85da18f4ff3a4978b602020a701b2372d868a21eeaa0d0aad49831767e7dc4cbff971e02da9c929eebb943ac185960eafa';
+const token = '3833f43cbd22389bb7cca20e5b95213b97e2469b6b9c87f46299b2f32792613da0df980db11492862852a050dff10757185e0145188dae23ecba649fb1cf73ec770e74c2967763be11ef6f4f10a1b79fc7f8646d57404aa6c16d305e460631ec9d97a6a99fd4f04000c7df61cde14a1033df8f750e7dceb00d5dbdecd9ede0f7';
 
 
 export const fetchPageContent = async () => {
   try {
-    const response = await axios.get('http://localhost:1337/api/contents?populate=*', {
+    const response = await axios.get('https://worthy-beef-fa3f6b6758.strapiapp.com/api/contents?populate=*', {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json'
